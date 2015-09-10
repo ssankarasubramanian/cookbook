@@ -53,6 +53,7 @@ h2{
   font-weight: normal;
   color: #777;
 }
+
 .left{
   text-align: left;
   letter-spacing: .5px;
@@ -83,4 +84,19 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
+}
+
+span.picture {
+  margin-top: 10px;
+  input{
+    border: 0;
+  }
+}
+.show-recipe{
+  margin: 10px 10px 10px 0;
+  width: 100%;
+}
+.show-recipe-summary{
+  margin-top: 0;
+  margin-bottom: 20px;
 }
