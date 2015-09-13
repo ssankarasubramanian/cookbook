@@ -1,6 +1,6 @@
 <%= render 'shared/errors', obj: @recipe %>
 <div class="row">
-  <div class="col-md-8 col-md-offset-2 well">
+  <div class="col-md-6 col-md-offset-3 well">
     <%= form_for(@recipe, html: { multipart: true }) do |f| %>
       <%= f.label :name %>
       <%= f.text_field :name %>
@@ -11,6 +11,16 @@
       <%= f.label :description %>
       <%= f.text_area :description, rows: 8 %>
       
+      <strong>Styles:</strong>
+      <%= f.collection_check_boxes :style_ids, Style.all, :id, :name do |cb| %>
+        <% cb.label(class: "checkbox-inline input_checkbox") {cb.check_box(class: "checkbox") + cb.text} %>
+      <% end %>
+      <br><br>
+      <strong>Ingredients:</strong>
+      <%= f.collection_check_boxes :ingredient_ids, Ingredient.all, :id, :name do |cbi| %>
+        <% cbi.label(class: "checkbox-inline input_checkbox") {cbi.check_box(class: "checkbox") + cbi.text} %>
+      <% end %>
+      <br><br>
       <span class="picture">
         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
       </span>
