@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:edit, :update, :show, :like]
-  before_action :require_user, except: [:show, :index, :like]
+  before_action :set_recipe, only: [:edit, :update, :show, :like, :review]
+  before_action :require_user, except: [:show, :index, :like, :review]
   before_action :require_user_like, only: [:like]
   before_action :require_same_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy]
@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
     end
     
     def show
-      
+      @reviews = @recipe.reviews
     end
     
     def new
@@ -55,11 +55,24 @@ class RecipesController < ApplicationController
       end
     end
     
+    def review
+      review = Review.create(body: params[:body], chef: current_user, recipe: @recipe)
+      if review.valid?
+        flash[:success] = "Your vote was successful!"
+        redirect_to :back
+      else
+        flash[:danger]= "You can review a recipe only once"
+        redirect_to :back
+      end
+      
+    end
+    
     def destroy
       Recipe.find(params[:id]).destroy
       flash[:success] = "Recipe has been deleted"
       redirect_to recipes_path
     end
+    
    
     
     private

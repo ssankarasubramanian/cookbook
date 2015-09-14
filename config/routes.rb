@@ -7,10 +7,13 @@ Rails.application.routes.draw do
   resources :recipes do
     member do
       post 'like'
+      post 'review'
     end
   end
   
   resources :chefs, except: [:new, :destroy]
+  
+  resources :reviews, only: [:destroy]
   
   get '/register', to: "chefs#new"
   
