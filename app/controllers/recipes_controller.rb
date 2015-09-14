@@ -58,7 +58,7 @@ class RecipesController < ApplicationController
     def review
       review = Review.create(body: params[:body], chef: current_user, recipe: @recipe)
       if review.valid?
-        flash[:success] = "Your vote was successful!"
+        flash[:success] = "Your review was successful!"
         redirect_to :back
       else
         flash[:danger]= "You can review a recipe only once"
