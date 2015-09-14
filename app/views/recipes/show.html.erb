@@ -34,8 +34,9 @@
   </div>
   <div class="col-md-8">
     <%= link_to 'Return to Recipe Listing' , recipes_path , class: "btn btn-warning btn-small" %>
-    <% if logged_in? && @recipe.chef == current_user %>
-      <%= link_to "Edit this Recipe", edit_recipe_path(@recipe), class: "btn btn-success pull-right" %>
+    <% if logged_in? && (@recipe.chef == current_user || current_user.admin?)%>
+      <%= link_to "Edit this Recipe", edit_recipe_path(@recipe), class: "btn btn-success pull-right actionbuttons" %>
+      <%= link_to "Delete this Recipe", @recipe, method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-success pull-right actionbuttons" %>
     <% end %>  
 </div>
 </div>
