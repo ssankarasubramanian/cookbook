@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @recipe = @review.recipe 
     @review.destroy
-    flash[:success] = "Your comment was deleted"
+    flash[:success] = "Your review has been deleted"
     redirect_to @recipe
   end
   

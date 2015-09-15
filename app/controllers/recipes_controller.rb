@@ -45,26 +45,23 @@ class RecipesController < ApplicationController
     end
     
     def like
-      like = Like.create(like: params[:like], chef: current_user, recipe: @recipe)
-      if like.valid?
-        flash[:success] = "Your vote was successful!"
-        redirect_to :back
-      else
-        flash[:danger]= "You can like/dislike a recipe only once"
-        redirect_to :back
-      end
+       common_action Like, :like, 'vote for'
     end
-    
+
     def review
-      review = Review.create(body: params[:body], chef: current_user, recipe: @recipe)
-      if review.valid?
-        flash[:success] = "Your review was successful!"
-        redirect_to :back
+      common_action Review, :body, 'review'
+    end
+
+    def common_action(model, param, verb)
+      object = model.create(param => params[param], 
+                        chef: current_user, 
+                        recipe: @recipe)
+      if object.valid?
+        flash[:success] = "Your #{model.name.downcase} was successful!"
       else
-        flash[:danger]= "You can review a recipe only once"
-        redirect_to :back
-      end
-      
+        flash[:danger]= "You can #{verb} a recipe item only once"
+      end      
+      redirect_to :back
     end
     
     def destroy
