@@ -25,7 +25,8 @@
         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
       </span>
       
-      <%= f.submit(@recipe.new_record? ? 'Create Recipe' : 'Edit Recipe', class: "btn btn-success" )%>
+      <%= button_tag(@recipe.new_record? ? 'Create Recipe' : 'Edit Recipe', class: "btn btn-success" )%>
+      <%= link_to "Cancel", :back, class:"btn btn-danger" %>
     <% end %>
   </div>
 </div>
